@@ -1,0 +1,131 @@
+
+
+/* === general ==== */
+body {
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+#wrapper {
+    min-height: 100vh;
+
+    box-sizing: border-box;
+    padding: 3px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 3px;
+    grid-row-gap: 3px;
+    
+    background-color: #262626;
+    color: #d5d5d5;
+}
+#field { grid-area: 1 / 1 / 2 / 2; }
+#input { grid-area: 2 / 1 / 3 / 2; }
+#suggestions { grid-area: 1 / 2 / 2 / 3; }
+#history { grid-area: 2 / 2 / 3 / 3; }
+
+
+.border {
+    border: 1px solid #d5d5d5;
+    border-radius: 3px;
+}
+
+
+/* === field === */
+#field {
+    position: relative;
+}
+#field::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 0;
+    transform: translateX(-50%);
+    
+    content: 'field';
+    color: white;
+}
+
+
+/* === input === */
+.selected {
+    border-color: blue;
+}
+.hover:hover {
+    cursor: pointer;
+    background-color: #d5d5d588;
+
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.cross_out {
+    position: relative;
+}
+.cross_out::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0;
+    transform: rotateZ(45deg);
+
+    height: 2px;
+    --calc: calc(2 * (1.5 * 1.5));
+    width: calc( sqrt(var(--calc)) * 1rem );
+
+    
+    content: '';
+    background-color: red;
+}
+.cross_out::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform-origin: 100%;
+    transform: rotateZ(315deg);
+
+    height: 2px;
+    --calc: calc(2 * (1.5 * 1.5));
+    width: calc( sqrt(var(--calc)) * 1rem );
+    
+    content: '';
+    background-color: red;
+}
+
+
+/* === suggestions === */
+#suggestions {
+    position: relative;
+}
+#suggestions::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 0;
+    transform: translateX(-50%);
+    
+    content: 'suggestions';
+    color: white;
+}
+
+
+/* === history === */
+#history {
+    position: relative;
+}
+#history::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 0;
+    transform: translateX(-50%);
+    
+    content: 'history';
+    color: white;
+}
