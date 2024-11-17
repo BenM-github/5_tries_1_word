@@ -1,68 +1,149 @@
 
 
 /* === general ==== */
+:root {
+    /* color's */
+    --font-color: white;
+    --bg-color: #262626;
+    --border-color: white;
+    
+    --unknown-bg-color: #d5d5d5;
+    --unknown-font-color: black;
+    --right-letter-bg-color: yellow;
+    --right-letter-font-color: black;
+    --right-position--bg-color: blue;
+    --right-position-font-color: white;
+    --not-included-bg-color: #262626;
+    --not-included-font-color: white;
+    
+    --hover-bg-color: #d5d5d588;
+    --hover-border-color: red;
+
+    /* size's */
+    --default-gap: 6px;
+    --default-border-radius: 3px;
+}
+
 body {
     padding: 0;
     border: 0;
     margin: 0;
+
+    font-family: monospace sans-serif;
 }
 
 #wrapper {
-    min-height: 100vh;
+    /* min-height: 100vh; */
+    height: 100vh;
 
     box-sizing: border-box;
-    padding: 3px;
+    padding: var(--default-gap);
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 3px;
-    grid-row-gap: 3px;
+    grid-column-gap: var(--default-gap);
+    grid-row-gap: var(--default-gap);
     
-    background-color: #262626;
-    color: #d5d5d5;
+    background-color: var(--bg-color);
+    color: var(--font-color);
 }
 #field { grid-area: 1 / 1 / 2 / 2; }
 #input { grid-area: 2 / 1 / 3 / 2; }
-#suggestions { grid-area: 1 / 2 / 2 / 3; }
-#history { grid-area: 2 / 2 / 3 / 3; }
-
+#suggestions { grid-area: 1 / 2 / 3 / 3; }
 
 .border {
-    border: 1px solid #d5d5d5;
-    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--default-border-radius);
 }
 
-
-/* === field === */
-#field {
-    position: relative;
-}
-#field::before {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 0;
-    transform: translateX(-50%);
-    
-    content: 'field';
-    color: white;
-}
-
-
-/* === input === */
 .selected {
-    border-color: blue;
+    border-color: var(--hover-border-color) !important;
 }
+
 .hover:hover {
     cursor: pointer;
-    background-color: #d5d5d588;
+    background-color: var(--hover-bg-color);
 
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+
+/* --- tmp headline --- */
+.headline {
+    position: relative;
+}
+.headline::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: 0;
+    transform: translateX(-50%);
+    
+    color: var(--font-color);
+}
+
+
+/* === field === */
+#field.headline::before {
+    content: 'field';
+}
+
+#field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#field .word {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#field .word .letter {
+    padding: var(--default-gap);
+    border: 1px solid var(--border-color);
+    border-radius: var(--default-border-radius);
+    margin: calc(var(--default-gap) / 2);
+}
+
+
+/* === input === */
+#input.headline::before {
+    content: 'input';
+}
+
+#input {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+#input .letter {
+    padding: var(--default-gap);
+    border: 1px solid var(--border-color);
+    border-radius: var(--default-border-radius);
+    margin: calc(var(--default-gap) / 2);
+}
+
+#input .letter.unknown {
+    background-color: var(--unknown-bg-color);
+    color: var(--unknown-font-color);
+}
+#input .letter.right-letter {
+    background-color: var(--right-letter-bg-color);
+    color: var(--right-letter-font-color);
+}
+#input .letter.right-position {
+    background-color: var(--right-position--bg-color);
+    color: var(--right-position-font-color);
 }
 
 .cross_out {
@@ -100,32 +181,23 @@ body {
 
 
 /* === suggestions === */
-#suggestions {
-    position: relative;
-}
-#suggestions::before {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 0;
-    transform: translateX(-50%);
-    
+#suggestions.headline::before {
     content: 'suggestions';
-    color: white;
 }
 
-
-/* === history === */
-#history {
-    position: relative;
+#suggestions {
+    overflow-y: scroll;
 }
-#history::before {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform-origin: 0;
-    transform: translateX(-50%);
-    
-    content: 'history';
-    color: white;
+
+#suggestions .word {
+    padding: calc(var(--default-gap) / 2) 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px;
+    border-left: 0;
+    border-style: solid;
+    border-color: var(--border-color);
+    margin: calc(var(--default-gap) / 2) 0;
+
+    text-align: center;
 }
